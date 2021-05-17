@@ -777,17 +777,18 @@
 		return this;
 	};
 
-	if (window.performance && window.performance.now) {
-		Date.Timer._now = function() {
-			return window.performance.now();
-		};
-	}
-	else if (window.performance && window.performance.webkitNow) {
-		Date.Timer._now = function() {
-			return window.performance.webkitNow();
-		};
-	}
-	else {
+
+	if (typeof window != "undefined") {
+		if (window.performance && window.performance.now) {
+			Date.Timer._now = function () {
+				return window.performance.now();
+			};
+		} else if (window.performance && window.performance.webkitNow) {
+			Date.Timer._now = function () {
+				return window.performance.webkitNow();
+			};
+		}
+	}else {
 		Date.Timer._now = function() {
 			return new Date().getTime() * 1000;
 		};
